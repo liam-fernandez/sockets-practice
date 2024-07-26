@@ -46,12 +46,13 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 
-    char client_buf[MAX_MSG_LEN + 1];
-    read(client_fd, client_buf, MAX_MSG_LEN + 1);
+    char client_buf[MAX_MSG_LEN + 2];
+    read(client_fd, client_buf, MAX_MSG_LEN + 2);
     while (strncmp(client_buf, QUIT_MSG, 4) != 0) {
         printf("Client said: %s", client_buf);
-        send(client_fd, client_buf, strnlen(client_buf, MAX_MSG_LEN) + 1, 0);
-        read(client_fd, client_buf, MAX_MSG_LEN + 1);
+        send(client_fd, client_buf, strnlen(client_buf, MAX_MSG_LEN + 1) + 1,
+             0);
+        read(client_fd, client_buf, MAX_MSG_LEN + 2);
     }
 
     printf("Client closed connection\n");
